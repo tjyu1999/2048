@@ -1,18 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <unistd.h>
 #include <signal.h>
+#include "2048.h"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char **argv) {
     uint8_t board[SIZE][SIZE];
     uint32_t score = 0;
     char c;
     bool success;
 
     printf("\033[?25l\033[2J");
-    signal(SIGINT, signal_callback_handler);
+    signal(SIGINT, signalCallback);
     initBoard(board);
     setBufferedInput(false);
     drawBoard(board, score);
@@ -26,18 +27,22 @@ int main(int argc, char *argv[]) {
         
         switch (c) {
 	    case 65: // up arrow
+	    case 119: // 'w' key
 		success = moveUp(board, &score);
 		break;
 	    
 	    case 66: // down arrow
+	    case 115: // 's' key
 		success = moveDown(board, &score);
 		break;
 		
             case 68: // left arrow
+	    case 97: // 'a' key
                 success = moveLeft(board, &score);
                 break;
 	        
 	    case 67: // right arrow
+	    case 100: // 'd' key
 		success = moveRight(board, &score);
 		break;
 	    
@@ -47,18 +52,18 @@ int main(int argc, char *argv[]) {
 	
 	if (success) {
             drawBoard(board, score);
-            usleep(150000);
+            usleep(200000);
             addRandom(board);
             drawBoard(board, score);
 	    
 	    if (gameEnded(board)) {
-                printf("GAME OVER\n");
+                printf("       GAME OVER       \n");
                 break;
 	    }
 	}
 	
         if (c == 'q') {
-	    printf("QUIT? (y/n)\n");
+	    printf("       QUIT? (y/n)       \n");
             c = getchar();
 	    if (c == 'y')
 	        break;
@@ -67,7 +72,7 @@ int main(int argc, char *argv[]) {
 	}
 	
 	if (c == 'r') {
-            printf("RESTART? (y/n)\n");
+            printf("       RESTART? (y/n)       \n");
             c = getchar();
             if (c == 'y') {
 	        initBoard(board);
