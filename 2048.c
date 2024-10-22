@@ -60,6 +60,10 @@ int main(int argc, char **argv) {
                 printf("       GAME OVER       \n");
                 break;
 	    }
+	    if (checkWin(board)) {
+                printf("       YOU WIN       \n");
+                break;
+	    }
 	}
 	
         if (c == 'q') {
@@ -86,5 +90,5 @@ int main(int argc, char **argv) {
     setBufferedInput(true);
     printf("\033[?25h\033[m");
 
-    return EXIT_SUCCESS;
+    return 0;
 }
