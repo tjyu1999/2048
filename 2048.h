@@ -34,7 +34,7 @@ void drawBoard(uint8_t board[SIZE][SIZE], uint32_t score) {
     uint8_t bg;
     
     printf("\033[H");
-    printf("%d pts\n", score);
+    printf("%d pts\n\n", score);
     
     for (y = 0; y < SIZE; ++y) {
 	for (x = 0; x < SIZE; ++x) {
@@ -70,7 +70,7 @@ void drawBoard(uint8_t board[SIZE][SIZE], uint32_t score) {
         printf("\n");
     }
     
-    printf("\n       ←,↑,→,↓ or q       \n");
+    printf("\n     ←, ↑, →, ↓ or q     \n");
     printf("\033[A");
 }
 
