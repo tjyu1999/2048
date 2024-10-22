@@ -8,7 +8,8 @@
 #include <signal.h>
 #include <time.h>
 
-#define SIZE 4
+#define SIZE        4
+#define DESTINATION 11 // 2^11 = 2048
 
 void getColor(uint8_t value, uint8_t *fg, uint8_t *bg) {
     uint8_t colors[] = {225, 8, 234, 223, 234, 222, 234, 215, 234, 208, 234, 210, 234, 204, 234, 203, 234, 196, 234, 81, 234, 39, 234, 25};
@@ -220,6 +221,18 @@ bool gameEnded(uint8_t board[SIZE][SIZE]) {
     rotateBoard(board);
     
     return ended;
+}
+
+bool checkWin(uint8_t board[SIZE][SIZE]) {
+    for (uint8_t x = 0; x < SIZE; ++x) {
+        for (uint8_t y = 0; y < SIZE; ++y) {
+            if (board[x][y] == DESTINATION) {
+                return true;
+            }
+        }
+    }
+    
+    return false;
 }
 
 void addRandom(uint8_t board[SIZE][SIZE]) {
