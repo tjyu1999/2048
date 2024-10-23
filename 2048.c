@@ -1,9 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include <stdint.h>
-#include <unistd.h>
-#include <signal.h>
 #include "2048.h"
 
 int main(int argc, char **argv) {
